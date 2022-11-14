@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:fontFamily="sans-serif-condensed"
-        android:text="@string/latest"
+        android:text="@string/other_currencies"
         android:textColor="@color/colorBlack"
         android:textSize="22sp"
         android:textStyle="bold"
