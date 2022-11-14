@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_converter_logo"
+        android:layout_width="86dp"
+        android:layout_height="86dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@id/tv_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_baseline_currency_exchange_24" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="50dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="@string/currency_converter"
+        android:textColor="@color/colorBlack"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/cl_converter_card"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_converter_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="30dp"
+        android:background="@drawable/bg_card"
+        android:padding="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:context=".presentation.ui.ConverterFragment">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_card_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:text="@string/convert"
+            android:textColor="@color/colorBlack"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/sp_from"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toStartOf="@id/iv_compare"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_card_title" />
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/sp_to"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/sp_from"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_compare"
+            app:layout_constraintTop_toTopOf="@id/sp_from" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_compare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/sp_from"
+            app:layout_constraintEnd_toStartOf="@id/sp_to"
+            app:layout_constraintStart_toEndOf="@id/sp_from"
+            app:layout_constraintTop_toTopOf="@id/sp_from"
+            app:srcCompat="@drawable/ic_compare_arrows" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_from"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:inputType="number"
+            android:minWidth="80dp"
+            android:text="@string/_1"
+            app:layout_constraintStart_toStartOf="@id/sp_from"
+            app:layout_constraintTop_toBottomOf="@id/sp_from" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_to"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:inputType="number"
+            android:minWidth="80dp"
+            app:layout_constraintEnd_toEndOf="@id/sp_to"
+            app:layout_constraintTop_toBottomOf="@id/sp_from" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_details"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorBlack"
+            android:text="@string/details"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@id/et_to"
+            app:layout_constraintStart_toStartOf="@id/et_from"
+            app:layout_constraintTop_toBottomOf="@id/et_from" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -58,6 +58,9 @@ dependencies {
     implementation "com.google.dagger:hilt-android:${hilt_version}"
     kapt "com.google.dagger:hilt-compiler:${hilt_version}"
 
+    //Graph
+    implementation "com.jjoe64:graphview:4.2.2"
+
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
