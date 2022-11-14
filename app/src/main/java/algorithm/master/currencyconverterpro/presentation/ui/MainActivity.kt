@@ -1,5 +1,6 @@
-package algorithm.master.currencyconverterpro
+package algorithm.master.currencyconverterpro.presentation.ui
 
+import algorithm.master.currencyconverterpro.R
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
