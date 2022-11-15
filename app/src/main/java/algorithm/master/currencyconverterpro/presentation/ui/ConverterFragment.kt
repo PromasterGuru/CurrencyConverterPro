@@ -4,11 +4,12 @@ import algorithm.master.currencyconverterpro.databinding.FragmentConverterBindin
 import algorithm.master.currencyconverterpro.presentation.viewmodel.AvailableCurrencyViewModel
 import algorithm.master.currencyconverterpro.presentation.viewmodel.CurrencyConverterViewModel
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.appcompat.widget.AppCompatSpinner
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
@@ -35,6 +36,63 @@ class ConverterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initObservers()
+        binding.etFrom.addTextChangedListener {
+            if (it.isNullOrEmpty()) binding.etFrom.setText("1")
+            convertCurrency(true)
+        }
+
+        binding.etTo.addTextChangedListener {
+            if (it.isNullOrEmpty()) binding.etTo.setText("1")
+            convertCurrency(false)
+        }
+
+        binding.btnDetails.setOnClickListener {
+            if (isCurrencyAvailable(
+                    binding.spFrom.selectedItemPosition, binding.spTo.selectedItemPosition
+                )
+            ) {
+                val fromAmount = binding.etFrom.text.toString()
+                val fromCurrency = binding.spFrom.selectedItem.toString()
+                val toCurrency = binding.spTo.selectedItem.toString()
+                val directions = ConverterFragmentDirections.openCurrencyDetails(
+                    fromCurrency, toCurrency, fromAmount.toInt()
+                )
+                findNavController().navigate(directions)
+            }
+        }
+        binding.ivSwap.setOnClickListener {
+            if (isCurrencyAvailable(
+                    binding.spFrom.selectedItemPosition, binding.spTo.selectedItemPosition
+                )
+            ) {
+                swapCurrencies(); convertCurrency(true)
+            }
+        }
+    }
+
+    private fun convertCurrency(leftToRight: Boolean) {
+        if (isCurrencyAvailable(
+                binding.spFrom.selectedItemPosition, binding.spTo.selectedItemPosition
+            )
+        ) {
+            val fromAmount = binding.etTo.text.toString().toDouble()
+            val fromCurrency = binding.spFrom.selectedItem.toString()
+            val toCurrency = binding.spTo.selectedItem.toString()
+            if (leftToRight) converterViewModel.convertCurrency(
+                toCurrency, fromCurrency, fromAmount, ""
+            )
+            else converterViewModel.convertCurrency(fromCurrency, toCurrency, fromAmount, "")
+        }
+    }
+
+    private fun swapCurrencies() {
+        val temp = binding.spFrom.selectedItemPosition
+        binding.spFrom.setSelection(binding.spTo.selectedItemPosition)
+        binding.spTo.setSelection(temp)
+    }
+
+    private fun initObservers() {
         //Fetch available currencies
         availableCurrencyViewModel.getAvailableCurrencies()
 
@@ -46,33 +104,11 @@ class ConverterFragment : Fragment() {
             binding.spFrom.adapter = spinnerAdapter
             binding.spTo.adapter = spinnerAdapter
         }
-
-        binding.btnDetails.setOnClickListener {
-
-            val fromAmount = binding.etFrom.text.toString()
-            val fromCurrency = binding.spFrom.selectedItem?.toString() ?: ""
-            val toCurrency = binding.spTo.selectedItem?.toString() ?: ""
-
-            if (isValidEntry(fromAmount, fromCurrency, toCurrency)) {
-                val directions = ConverterFragmentDirections.openCurrencyDetails(
-                    fromCurrency, toCurrency, fromAmount.toInt()
-                )
-                findNavController().navigate(directions)
-            }
-        }
     }
 
-    private fun isValidEntry(txtFrom: String, spFrom: String, spTo: String): Boolean {
-        if (TextUtils.isEmpty(txtFrom)) {
-            showErrorMessage("Enter from amount")
-            return false
-        }
-        if (TextUtils.isEmpty(spFrom)) {
-            showErrorMessage("Select currency from")
-            return false
-        }
-        if (TextUtils.isEmpty(spTo)) {
-            showErrorMessage("Select currency to")
+    private fun isCurrencyAvailable(fromPos: Int, toPos: Int): Boolean {
+        if (fromPos == AppCompatSpinner.INVALID_POSITION || toPos == AppCompatSpinner.INVALID_POSITION) {
+            showErrorMessage("No currency available")
             return false
         }
         return true
