@@ -43,26 +43,22 @@ class ConverterFragment : Fragment() {
         initObservers()
         binding.etFrom.doAfterTextChanged {
             if (!it.isNullOrEmpty()) {
-                converterViewModel.apply {
-                    val fetching = fetching.value
-                    val result = currencyModel.value?.result ?: 1F
-                    val toValue = binding.etTo.text?.toString()?.toFloat() ?: 1F
-                    if (fetching == false && result != toValue) {
-                        convertCurrency(true)
-                    }
+                val typedAmount = binding.etFrom.text.toString().toFloat()
+                val serverAmount = converterViewModel.currencyModel.value?.amount ?: 0F
+                val shouldFetch = binding.etFrom.hasFocus() && typedAmount != serverAmount
+                if (converterViewModel.fetching.value == false && shouldFetch) {
+                    convertCurrency(true)
                 }
             }
         }
 
         binding.etTo.doAfterTextChanged {
             if (!it.isNullOrEmpty()) {
-                converterViewModel.apply {
-                    val fetching = fetching.value
-                    val amount = currencyModel.value?.amount ?: 1F
-                    val fromValue = binding.etFrom.text?.toString()?.toFloat() ?: 1F
-                    if (fetching == false && amount != fromValue) {
-                        convertCurrency(false)
-                    }
+                val typedAmount = binding.etTo.text.toString().toFloat()
+                val serverAmount = converterViewModel.currencyModel.value?.amount ?: 0F
+                val shouldFetch = binding.etTo.hasFocus() && typedAmount != serverAmount
+                if (converterViewModel.fetching.value == false && shouldFetch) {
+                    convertCurrency(false)
                 }
             }
         }
@@ -110,6 +106,8 @@ class ConverterFragment : Fragment() {
             override fun onItemSelected(
                 parent: AdapterView<*>?, view: View?, position: Int, id: Long
             ) {
+                binding.etFrom.clearFocus()
+                binding.etTo.clearFocus()
                 convertCurrency.invoke()
             }
 
@@ -158,8 +156,8 @@ class ConverterFragment : Fragment() {
         //Display converted currencies
         converterViewModel.currencyModel.observe(viewLifecycleOwner) {
             if (it.from == binding.spFrom.selectedItem) {
-                binding.etTo.setText(it.result.toString())
                 binding.etFrom.setText(it.amount.toString())
+                binding.etTo.setText(it.result.toString())
             } else {
                 binding.etFrom.setText(it.result.toString())
                 binding.etTo.setText(it.amount.toString())
