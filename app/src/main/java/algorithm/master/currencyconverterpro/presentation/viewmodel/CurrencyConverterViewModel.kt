@@ -6,12 +6,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  * Created by promasterguru on 15/11/2022.
  */
 class CurrencyConverterViewModel
-    (private val converterUserCase: ConvertCurrencyUseCase) : BaseViewModel() {
+@Inject constructor(private val converterUserCase: ConvertCurrencyUseCase) : BaseViewModel() {
     private val _currencyModel = MutableLiveData<ConverterCurrencyModel>()
     val currencyModel: LiveData<ConverterCurrencyModel>
         get() = _currencyModel
