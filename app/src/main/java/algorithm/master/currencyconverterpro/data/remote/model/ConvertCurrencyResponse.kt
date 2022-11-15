@@ -28,7 +28,7 @@ data class Info(
 
 data class Query(
     @SerializedName("amount")
-    val amount: Int,
+    val amount: Double,
     @SerializedName("from")
     val from: String,
     @SerializedName("to")
