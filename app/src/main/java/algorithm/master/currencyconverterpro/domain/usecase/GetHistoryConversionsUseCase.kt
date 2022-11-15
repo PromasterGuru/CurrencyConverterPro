@@ -3,22 +3,22 @@ package algorithm.master.currencyconverterpro.domain.usecase
 import algorithm.master.currencyconverterpro.domain.model.ExceptionModel
 import algorithm.master.currencyconverterpro.domain.model.history.RateModel
 import algorithm.master.currencyconverterpro.domain.repository.CurrencyRepository
-import java.util.*
 
 /**
  * Created by promasterguru on 15/11/2022.
  */
-class GetLatestConversionsUseCase(private val currencyRepository: CurrencyRepository) {
+class GetHistoryConversionsUseCase(private val currencyRepository: CurrencyRepository) {
     suspend fun execute(
-        endDate: Date,
-        startDate: Date,
+        endDate: String,
+        startDate: String,
         base: String,
         symbols: String,
         onSuccess: (List<RateModel>) -> Unit,
-        onFailure: (ExceptionModel) -> Unit
+        onFailure: (ExceptionModel) -> Unit,
+        onComplete: (Boolean) -> Unit
     ) {
         currencyRepository.getLatestConversions(
-            endDate, startDate, base, symbols, onSuccess, onFailure
+            endDate, startDate, base, symbols, onSuccess, onFailure, onComplete
         )
     }
 }

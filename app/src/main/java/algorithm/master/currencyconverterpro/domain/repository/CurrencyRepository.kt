@@ -15,18 +15,22 @@ interface CurrencyRepository {
         amount: Double,
         data: String,
         onSuccess: (ConverterCurrencyModel) -> Unit,
-        onFailure: (ExceptionModel) -> Unit
+        onFailure: (ExceptionModel) -> Unit,
+        onComplete: (Boolean) -> Unit
     )
 
     suspend fun getAllAvailableCurrencies(
-        onSuccess: (List<String>) -> Unit, onFailure: (ExceptionModel) -> Unit
+        onSuccess: (List<String>) -> Unit,
+        onFailure: (ExceptionModel) -> Unit,
+        onComplete: (Boolean) -> Unit
     )
 
     suspend fun getRealTimeExchangeRate(
         symbols: String,
         base: String,
         onSuccess: (List<RateModel>) -> Unit,
-        onFailure: (ExceptionModel) -> Unit
+        onFailure: (ExceptionModel) -> Unit,
+        onComplete: (Boolean) -> Unit
     )
 
     suspend fun getLatestConversions(
@@ -35,6 +39,7 @@ interface CurrencyRepository {
         base: String,
         symbols: String,
         onSuccess: (List<RateModel>) -> Unit,
-        onFailure: (ExceptionModel) -> Unit
+        onFailure: (ExceptionModel) -> Unit,
+        onComplete: (Boolean) -> Unit
     )
 }

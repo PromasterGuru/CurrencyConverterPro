@@ -12,11 +12,12 @@ class ConvertCurrencyUseCase(private val currencyRepository: CurrencyRepository)
     suspend fun execute(
         to: String,
         from: String,
-        amount: Int,
-        data: Date,
+        amount: Double,
+        date: String,
         onSuccess: (ConverterCurrencyModel) -> Unit,
-        onFailure: (ExceptionModel) -> Unit
+        onFailure: (ExceptionModel) -> Unit,
+        onComplete: (Boolean) -> Unit
     ) {
-        currencyRepository.convertCurrency(to, from, amount, data, onSuccess, onFailure)
+        currencyRepository.convertCurrency(to, from, amount, date, onSuccess, onFailure, onComplete)
     }
 }
