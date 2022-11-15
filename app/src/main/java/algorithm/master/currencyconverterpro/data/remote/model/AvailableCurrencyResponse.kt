@@ -8,4 +8,6 @@ data class AvailableCurrencyResponse(
     val success: Boolean,
     @SerializedName("symbols")
     val symbols: HashMap<String, String>
-)
+) {
+    fun toCurrencySymbols() = symbols.map { it.key }
+}

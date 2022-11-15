@@ -7,7 +7,7 @@ data class ConverterCurrencyModel(
     val amount: Double,
     val from: String,
     val to: String,
-    val rate: String,
+    val rate: Double,
     val date: String,
     val result: Double
 )

@@ -1,6 +1,6 @@
 package algorithm.master.currencyconverterpro.domain.usecase
 
-import algorithm.master.currencyconverterpro.domain.model.Exception
+import algorithm.master.currencyconverterpro.domain.model.ExceptionModel
 import algorithm.master.currencyconverterpro.domain.model.converter.ConverterCurrencyModel
 import algorithm.master.currencyconverterpro.domain.repository.CurrencyRepository
 import java.util.*
@@ -15,7 +15,7 @@ class ConvertCurrencyUseCase(private val currencyRepository: CurrencyRepository)
         amount: Int,
         data: Date,
         onSuccess: (ConverterCurrencyModel) -> Unit,
-        onFailure: (Exception) -> Unit
+        onFailure: (ExceptionModel) -> Unit
     ) {
         currencyRepository.convertCurrency(to, from, amount, data, onSuccess, onFailure)
     }

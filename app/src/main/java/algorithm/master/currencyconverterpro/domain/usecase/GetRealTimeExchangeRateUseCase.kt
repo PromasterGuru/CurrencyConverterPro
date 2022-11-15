@@ -1,7 +1,7 @@
 package algorithm.master.currencyconverterpro.domain.usecase
 
-import algorithm.master.currencyconverterpro.domain.model.Exception
-import algorithm.master.currencyconverterpro.domain.model.history.Rate
+import algorithm.master.currencyconverterpro.domain.model.ExceptionModel
+import algorithm.master.currencyconverterpro.domain.model.history.RateModel
 import algorithm.master.currencyconverterpro.domain.repository.CurrencyRepository
 
 /**
@@ -11,8 +11,8 @@ class GetRealTimeExchangeRateUseCase(private val currencyRepository: CurrencyRep
     suspend fun execute(
         symbols: String,
         base: String,
-        onSuccess: (List<Rate>) -> Unit,
-        onFailure: (Exception) -> Unit
+        onSuccess: (List<RateModel>) -> Unit,
+        onFailure: (ExceptionModel) -> Unit
     ) {
         currencyRepository.getRealTimeExchangeRate(symbols, base, onSuccess, onFailure)
     }
