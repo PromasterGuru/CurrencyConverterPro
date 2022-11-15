@@ -19,25 +19,36 @@ class CurrencyRepositoryImpl(private val currencyService: CurrencyService) : Cur
         amount: Double,
         data: String,
         onSuccess: (ConverterCurrencyModel) -> Unit,
-        onFailure: (ExceptionModel) -> Unit
+        onFailure: (ExceptionModel) -> Unit,
+        onComplete: (Boolean) -> Unit
     ) {
         when (val response =
             safeApiCall { currencyService.convertCurrency(to, from, amount, data) }) {
             is ResponseWrapper.Success -> {
+                onComplete(false)
                 onSuccess(response.data.toCurrencyModel())
             }
-            is ResponseWrapper.Failure -> onFailure(response.error.resolve())
+            is ResponseWrapper.Failure -> {
+                onComplete(false)
+                onFailure(response.error.resolve())
+            }
         }
     }
 
     override suspend fun getAllAvailableCurrencies(
-        onSuccess: (List<String>) -> Unit, onFailure: (ExceptionModel) -> Unit
+        onSuccess: (List<String>) -> Unit,
+        onFailure: (ExceptionModel) -> Unit,
+        onComplete: (Boolean) -> Unit
     ) {
         when (val response = safeApiCall { currencyService.getAllAvailableCurrencies() }) {
             is ResponseWrapper.Success -> {
-                response.data.toCurrencySymbols()
+                onComplete(false)
+                onSuccess(response.data.toCurrencySymbols())
             }
-            is ResponseWrapper.Failure -> onFailure(response.error.resolve())
+            is ResponseWrapper.Failure -> {
+                onComplete(false)
+                onFailure(response.error.resolve())
+            }
         }
     }
 
@@ -45,14 +56,19 @@ class CurrencyRepositoryImpl(private val currencyService: CurrencyService) : Cur
         symbols: String,
         base: String,
         onSuccess: (List<RateModel>) -> Unit,
-        onFailure: (ExceptionModel) -> Unit
+        onFailure: (ExceptionModel) -> Unit,
+        onComplete: (Boolean) -> Unit
     ) {
         when (val response =
             safeApiCall { currencyService.getRealTimeExchangeRate(symbols, base) }) {
             is ResponseWrapper.Success -> {
-                response.data.toRates()
+                onComplete(false)
+                onSuccess(response.data.toRates())
             }
-            is ResponseWrapper.Failure -> onFailure(response.error.resolve())
+            is ResponseWrapper.Failure -> {
+                onComplete(false)
+                onFailure(response.error.resolve())
+            }
         }
     }
 
@@ -62,7 +78,8 @@ class CurrencyRepositoryImpl(private val currencyService: CurrencyService) : Cur
         base: String,
         symbols: String,
         onSuccess: (List<RateModel>) -> Unit,
-        onFailure: (ExceptionModel) -> Unit
+        onFailure: (ExceptionModel) -> Unit,
+        onComplete: (Boolean) -> Unit,
     ) {
         when (val response =
             safeApiCall {
@@ -74,9 +91,13 @@ class CurrencyRepositoryImpl(private val currencyService: CurrencyService) : Cur
                 )
             }) {
             is ResponseWrapper.Success -> {
-                response.data.toRates()
+                onComplete(false)
+                onSuccess(response.data.toRates())
             }
-            is ResponseWrapper.Failure -> onFailure(response.error.resolve())
+            is ResponseWrapper.Failure -> {
+                onComplete(false)
+                onFailure(response.error.resolve())
+            }
         }
     }
 }

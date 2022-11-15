@@ -12,8 +12,9 @@ class GetRealTimeExchangeRateUseCase(private val currencyRepository: CurrencyRep
         symbols: String,
         base: String,
         onSuccess: (List<RateModel>) -> Unit,
-        onFailure: (ExceptionModel) -> Unit
+        onFailure: (ExceptionModel) -> Unit,
+        onComplete: (Boolean) -> Unit,
     ) {
-        currencyRepository.getRealTimeExchangeRate(symbols, base, onSuccess, onFailure)
+        currencyRepository.getRealTimeExchangeRate(symbols, base, onSuccess, onFailure, onComplete)
     }
 }
