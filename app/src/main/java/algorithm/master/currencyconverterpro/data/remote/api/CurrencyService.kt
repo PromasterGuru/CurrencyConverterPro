@@ -17,7 +17,7 @@ interface CurrencyService {
     suspend fun convertCurrency(
         @Path("to") to: String,
         @Path("from") from: String,
-        @Path("amount") amount: Int,
+        @Path("amount") amount: Double,
         @Query("date") data: Date
     ): ConvertCurrencyResponse
 
