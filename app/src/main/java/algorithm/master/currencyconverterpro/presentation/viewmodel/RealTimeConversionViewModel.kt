@@ -6,12 +6,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  * Created by promasterguru on 15/11/2022.
  */
 class RealTimeConversionViewModel
-    (private val realTimeConversionsUseCase: GetRealTimeExchangeRateUseCase) : BaseViewModel() {
+@Inject constructor(private val realTimeConversionsUseCase: GetRealTimeExchangeRateUseCase) :
+    BaseViewModel() {
     private val _realTimeConversions = MutableLiveData<List<RateModel>>()
     val realTimeConversions: LiveData<List<RateModel>>
         get() = _realTimeConversions

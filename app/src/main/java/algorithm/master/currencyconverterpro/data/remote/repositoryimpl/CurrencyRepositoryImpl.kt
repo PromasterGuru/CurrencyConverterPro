@@ -8,11 +8,12 @@ import algorithm.master.currencyconverterpro.domain.model.ExceptionModel
 import algorithm.master.currencyconverterpro.domain.model.converter.ConverterCurrencyModel
 import algorithm.master.currencyconverterpro.domain.model.history.RateModel
 import algorithm.master.currencyconverterpro.domain.repository.CurrencyRepository
+import javax.inject.Inject
 
 /**
  * Created by promasterguru on 15/11/2022.
  */
-class CurrencyRepositoryImpl(private val currencyService: CurrencyService) : CurrencyRepository {
+class CurrencyRepositoryImpl @Inject constructor(private val currencyService: CurrencyService) : CurrencyRepository {
     override suspend fun convertCurrency(
         to: String,
         from: String,

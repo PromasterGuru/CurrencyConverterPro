@@ -6,12 +6,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  * Created by promasterguru on 15/11/2022.
  */
 class HistoryConversionViewModel
-    (private val historyConversionsUseCase: GetHistoryConversionsUseCase) : BaseViewModel() {
+@Inject constructor(private val historyConversionsUseCase: GetHistoryConversionsUseCase) :
+    BaseViewModel() {
     private val _historyConversions = MutableLiveData<List<RateModel>>()
     val historyConversions: LiveData<List<RateModel>>
         get() = _historyConversions
