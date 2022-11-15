@@ -13,7 +13,7 @@ class ConvertCurrencyUseCase
     suspend fun execute(
         to: String,
         from: String,
-        amount: Double,
+        amount: Float,
         date: String,
         onSuccess: (ConverterCurrencyModel) -> Unit,
         onFailure: (ExceptionModel) -> Unit,

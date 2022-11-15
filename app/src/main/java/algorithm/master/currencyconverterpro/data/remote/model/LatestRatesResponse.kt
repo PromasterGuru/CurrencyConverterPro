@@ -11,5 +11,5 @@ data class LatestRatesResponse(
     @SerializedName("success") val success: Boolean,
     @SerializedName("timestamp") val timestamp: Int
 ) {
-    fun toRates() = rates.map { RateModel(base, it.key, it.value, date, "") }
+    fun toRates() = rates.map { RateModel(base, it.key, it.value.toFloat(), date, "") }
 }

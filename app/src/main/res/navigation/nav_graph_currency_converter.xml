@@ -25,7 +25,7 @@
             android:name="currencyTo"
             app:argType="string" />
         <argument
-            android:name="currencyAmount"
-            app:argType="integer" />
+            android:name="symbols"
+            app:argType="string" />
     </fragment>
 </navigation>

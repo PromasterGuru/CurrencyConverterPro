@@ -11,16 +11,16 @@ import javax.inject.Inject
 class GetHistoryConversionsUseCase
 @Inject constructor(private val currencyRepository: CurrencyRepository) {
     suspend fun execute(
-        endDate: String,
         startDate: String,
+        endDate: String,
         base: String,
         symbols: String,
         onSuccess: (List<RateModel>) -> Unit,
         onFailure: (ExceptionModel) -> Unit,
         onComplete: (Boolean) -> Unit
     ) {
-        currencyRepository.getLatestConversions(
-            endDate, startDate, base, symbols, onSuccess, onFailure, onComplete
+        currencyRepository.getHistoryConversions(
+            startDate, endDate, base, symbols, onSuccess, onFailure, onComplete
         )
     }
 }

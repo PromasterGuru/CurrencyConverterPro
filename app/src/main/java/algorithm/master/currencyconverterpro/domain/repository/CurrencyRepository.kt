@@ -12,8 +12,8 @@ interface CurrencyRepository {
     suspend fun convertCurrency(
         to: String,
         from: String,
-        amount: Double,
-        data: String,
+        amount: Float,
+        date: String,
         onSuccess: (ConverterCurrencyModel) -> Unit,
         onFailure: (ExceptionModel) -> Unit,
         onComplete: (Boolean) -> Unit
@@ -33,7 +33,7 @@ interface CurrencyRepository {
         onComplete: (Boolean) -> Unit
     )
 
-    suspend fun getLatestConversions(
+    suspend fun getHistoryConversions(
         endDate: String,
         startDate: String,
         base: String,
