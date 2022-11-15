@@ -23,11 +23,3 @@ fun parseDate(strDate: String): Date? {
         null
     }
 }
-
-fun parseDayOfMonth(strDate: Date): String {
-    return try {
-        SimpleDateFormat("dd/MM", Locale.getDefault()).format(strDate)
-    } catch (ex: Exception) {
-        ""
-    }
-}

@@ -6,7 +6,6 @@ import algorithm.master.currencyconverterpro.presentation.adapter.ConversionRate
 import algorithm.master.currencyconverterpro.presentation.util.getDate
 import algorithm.master.currencyconverterpro.presentation.util.getPastDate
 import algorithm.master.currencyconverterpro.presentation.util.parseDate
-import algorithm.master.currencyconverterpro.presentation.util.parseDayOfMonth
 import algorithm.master.currencyconverterpro.presentation.viewmodel.HistoryConversionViewModel
 import algorithm.master.currencyconverterpro.presentation.viewmodel.RealTimeConversionViewModel
 import android.os.Bundle
@@ -23,7 +22,6 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
-import com.jjoe64.graphview.helper.StaticLabelsFormatter
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
 import dagger.hilt.android.AndroidEntryPoint
@@ -115,11 +113,9 @@ class DetailFragment : Fragment() {
     private fun displayInGraph(data: List<RateModel>?) {
         lifecycleScope.launch(Dispatchers.IO) {
             val series: LineGraphSeries<DataPoint> = LineGraphSeries()
-            val labels = Array(data?.size ?: 0) { "" }
             try {
                 data?.map { parseDate(it.date) to it.amount.toDouble() }?.sortedBy { it.first }
                     ?.forEachIndexed { index, pair ->
-                        pair.first?.let { labels.plus(parseDayOfMonth(it)) }
                         series.appendData(
                             DataPoint(
                                 index.toDouble(),
@@ -134,9 +130,7 @@ class DetailFragment : Fragment() {
                 series.isDrawDataPoints = true
                 series.dataPointsRadius = 8F
                 binding.gvCurrencyGraph.gridLabelRenderer.apply {
-                    val staticLabelFormatter = StaticLabelsFormatter(binding.gvCurrencyGraph)
-                    staticLabelFormatter.setHorizontalLabels(labels)
-                    horizontalAxisTitle = "Date"
+                    horizontalAxisTitle = "Days"
                     verticalAxisTitle = "Price (${navArgs.currencyTo})"
                 }
                 binding.gvCurrencyGraph.viewport.isXAxisBoundsManual = true
