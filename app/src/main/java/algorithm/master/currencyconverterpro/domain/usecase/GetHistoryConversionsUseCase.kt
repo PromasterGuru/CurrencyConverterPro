@@ -7,7 +7,7 @@ import algorithm.master.currencyconverterpro.domain.repository.CurrencyRepositor
 /**
  * Created by promasterguru on 15/11/2022.
  */
-class GetLatestConversionsUseCase(private val currencyRepository: CurrencyRepository) {
+class GetHistoryConversionsUseCase(private val currencyRepository: CurrencyRepository) {
     suspend fun execute(
         endDate: String,
         startDate: String,
