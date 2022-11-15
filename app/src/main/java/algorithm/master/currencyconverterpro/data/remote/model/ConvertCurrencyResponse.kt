@@ -13,12 +13,12 @@ data class ConvertCurrencyResponse(
     @SerializedName("success") val success: Boolean
 ) {
     fun toCurrencyModel() = ConverterCurrencyModel(
-        amount = this.query.amount,
+        amount = this.query.amount.toFloat(),
         from = this.query.from,
         to = this.query.to,
-        rate = this.info.rate,
+        rate = this.info.rate.toFloat(),
         date = this.date,
-        result = this.result
+        result = this.result.toFloat()
     )
 }
 

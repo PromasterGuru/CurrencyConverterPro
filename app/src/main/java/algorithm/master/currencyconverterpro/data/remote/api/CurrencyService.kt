@@ -15,10 +15,10 @@ import java.util.*
 interface CurrencyService {
     @GET("/exchangerates_data/convert")
     suspend fun convertCurrency(
-        @Path("to") to: String,
-        @Path("from") from: String,
-        @Path("amount") amount: Double,
-        @Query("date") data: String
+        @Query("to") to: String,
+        @Query("from") from: String,
+        @Query("amount") amount: Float,
+        @Query("date") date: String
     ): ConvertCurrencyResponse
 
     @GET("/exchangerates_data/symbols")
@@ -26,14 +26,14 @@ interface CurrencyService {
 
     @GET("/exchangerates_data/latest")
     suspend fun getRealTimeExchangeRate(
-        @Path("symbols") symbols: String,
-        @Path("base") base: String,
+        @Query("symbols") symbols: String,
+        @Query("base") base: String,
     ): LatestRatesResponse
 
     @GET("/exchangerates_data/timeseries")
-    suspend fun getLatestConversions(
-        @Path("end_date") endDate: String,
-        @Path("start_date") startDate: String,
+    suspend fun getHistoryConversions(
+        @Query("start_date") startDate: String,
+        @Query("end_date") endDate: String,
         @Query("base") base: String,
         @Query("symbols") symbols: String,
     ): TimeSeriesResponse

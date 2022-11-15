@@ -17,14 +17,14 @@ class CurrencyRepositoryImpl @Inject constructor(private val currencyService: Cu
     override suspend fun convertCurrency(
         to: String,
         from: String,
-        amount: Double,
-        data: String,
+        amount: Float,
+        date: String,
         onSuccess: (ConverterCurrencyModel) -> Unit,
         onFailure: (ExceptionModel) -> Unit,
         onComplete: (Boolean) -> Unit
     ) {
         when (val response =
-            safeApiCall { currencyService.convertCurrency(to, from, amount, data) }) {
+            safeApiCall { currencyService.convertCurrency(to, from, amount, date) }) {
             is ResponseWrapper.Success -> {
                 onComplete(false)
                 onSuccess(response.data.toCurrencyModel())
@@ -73,9 +73,9 @@ class CurrencyRepositoryImpl @Inject constructor(private val currencyService: Cu
         }
     }
 
-    override suspend fun getLatestConversions(
-        endDate: String,
+    override suspend fun getHistoryConversions(
         startDate: String,
+        endDate: String,
         base: String,
         symbols: String,
         onSuccess: (List<RateModel>) -> Unit,
@@ -84,9 +84,9 @@ class CurrencyRepositoryImpl @Inject constructor(private val currencyService: Cu
     ) {
         when (val response =
             safeApiCall {
-                currencyService.getLatestConversions(
-                    endDate,
+                currencyService.getHistoryConversions(
                     startDate,
+                    endDate,
                     base,
                     symbols
                 )

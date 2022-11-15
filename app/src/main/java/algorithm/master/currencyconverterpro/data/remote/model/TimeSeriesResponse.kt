@@ -17,7 +17,7 @@ data class TimeSeriesResponse(
         rates.forEach { rateEntry ->
             currencyRates.addAll(rateEntry.value.entries.map {
                 RateModel(
-                    base, it.key, it.value, rateEntry.key, endDate
+                    base, it.key, it.value.toFloat(), rateEntry.key, endDate
                 )
             })
         }
