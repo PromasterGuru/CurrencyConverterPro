@@ -18,7 +18,7 @@ interface CurrencyService {
         @Path("to") to: String,
         @Path("from") from: String,
         @Path("amount") amount: Double,
-        @Query("date") data: Date
+        @Query("date") data: String
     ): ConvertCurrencyResponse
 
     @GET("/exchangerates_data/symbols")
@@ -32,8 +32,8 @@ interface CurrencyService {
 
     @GET("/exchangerates_data/timeseries")
     suspend fun getLatestConversions(
-        @Path("end_date") endDate: Date,
-        @Path("start_date") startDate: Date,
+        @Path("end_date") endDate: String,
+        @Path("start_date") startDate: String,
         @Query("base") base: String,
         @Query("symbols") symbols: String,
     ): TimeSeriesResponse

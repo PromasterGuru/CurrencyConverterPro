@@ -1,8 +1,8 @@
 package algorithm.master.currencyconverterpro.domain.repository
 
-import algorithm.master.currencyconverterpro.domain.model.Exception
+import algorithm.master.currencyconverterpro.domain.model.ExceptionModel
 import algorithm.master.currencyconverterpro.domain.model.converter.ConverterCurrencyModel
-import algorithm.master.currencyconverterpro.domain.model.history.Rate
+import algorithm.master.currencyconverterpro.domain.model.history.RateModel
 import java.util.*
 
 /**
@@ -12,29 +12,29 @@ interface CurrencyRepository {
     suspend fun convertCurrency(
         to: String,
         from: String,
-        amount: Int,
-        data: Date,
+        amount: Double,
+        data: String,
         onSuccess: (ConverterCurrencyModel) -> Unit,
-        onFailure: (Exception) -> Unit
+        onFailure: (ExceptionModel) -> Unit
     )
 
     suspend fun getAllAvailableCurrencies(
-        onSuccess: (List<String>) -> Unit, onFailure: (Exception) -> Unit
+        onSuccess: (List<String>) -> Unit, onFailure: (ExceptionModel) -> Unit
     )
 
     suspend fun getRealTimeExchangeRate(
         symbols: String,
         base: String,
-        onSuccess: (List<Rate>) -> Unit,
-        onFailure: (Exception) -> Unit
+        onSuccess: (List<RateModel>) -> Unit,
+        onFailure: (ExceptionModel) -> Unit
     )
 
     suspend fun getLatestConversions(
-        endDate: Date,
-        startDate: Date,
+        endDate: String,
+        startDate: String,
         base: String,
         symbols: String,
-        onSuccess: (List<Rate>) -> Unit,
-        onFailure: (Exception) -> Unit
+        onSuccess: (List<RateModel>) -> Unit,
+        onFailure: (ExceptionModel) -> Unit
     )
 }

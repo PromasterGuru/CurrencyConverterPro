@@ -1,7 +1,7 @@
 package algorithm.master.currencyconverterpro.domain.usecase
 
-import algorithm.master.currencyconverterpro.domain.model.Exception
-import algorithm.master.currencyconverterpro.domain.model.history.Rate
+import algorithm.master.currencyconverterpro.domain.model.ExceptionModel
+import algorithm.master.currencyconverterpro.domain.model.history.RateModel
 import algorithm.master.currencyconverterpro.domain.repository.CurrencyRepository
 import java.util.*
 
@@ -14,8 +14,8 @@ class GetLatestConversionsUseCase(private val currencyRepository: CurrencyReposi
         startDate: Date,
         base: String,
         symbols: String,
-        onSuccess: (List<Rate>) -> Unit,
-        onFailure: (Exception) -> Unit
+        onSuccess: (List<RateModel>) -> Unit,
+        onFailure: (ExceptionModel) -> Unit
     ) {
         currencyRepository.getLatestConversions(
             endDate, startDate, base, symbols, onSuccess, onFailure
